@@ -7,10 +7,13 @@ local MSG_USE_STRETCH_PROJ =    hash("use_stretch_projection")
 local MSG_USE_FIXED_PROJ =      hash("use_fixed_projection")
 local MSG_USE_FIXED_FIT_PROJ =  hash("use_fixed_fit_projection")
 
+-- blur messages
 local MSG_BLUR = hash("msg_camera_blur")
 local MSG_BLUR_LOW = hash("msg_camera_blur_low")
 local MSG_BLUR_HIGH = hash("msg_camera_blur_high")
+local MSG_BLUR_ENABLE = hash("msg_camera_blur_enable")
 
+-- blur materials
 local BLUR_LOW = hash("blur_low")
 local BLUR_HIGH = hash("blur_high")
 
@@ -263,7 +266,7 @@ function update(self,dt)
     local predicates = self.predicates
 
     -- route to world_rt 
-    if (self.blur_enabled==true and self.blur_value>0) then
+    if (self.blur_enabled==true and self.blur_value>0.01) then
         render.set_render_target(state.world_rt)
     end
     
@@ -295,7 +298,7 @@ function update(self,dt)
 
  
     -- blur
-    if (self.blur_enabled==true and self.blur_value>0) then
+    if (self.blur_enabled==true and self.blur_value>0.01) then
         -- disable blend and reset view and projection
         render.disable_state(graphics.STATE_BLEND)
         render.set_view(IDENTITY)
@@ -371,5 +374,7 @@ function on_message(self, message_id, message)
         self.blur_material = BLUR_LOW
     elseif (message_id ==MSG_BLUR_HIGH) then
         self.blur_material = BLUR_HIGH
+    elseif (message_id == MSG_BLUR_ENABLE) then
+        self.blur_enabled = message.enable
     end
 end

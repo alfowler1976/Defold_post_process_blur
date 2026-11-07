@@ -32,13 +32,6 @@ void main()
 	float size = u_blur_size.x; 
 	vec2 uv = var_texcoord0;
 
-	// early exit if blur is off
-	if (size <= 0.001) 
-	{
-		color_out = texture(texture_sampler, uv);
-		return;
-	}
-
 	vec2 dir_step = (1.0 / u_resolution.xy) * u_direction.xy * (size * 0.25);
 
 	// center pixel contribution
