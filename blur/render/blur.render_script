@@ -206,7 +206,7 @@ function init(self)
     self.predicates = create_predicates("tile","gui", "particle", "model", "debug_text", "post_process")
 
     -- blur variables
-    self.blur_enabled = true
+    self.blur_enabled = false
     
     self.blur_material = BLUR_LOW
     self.blur_low = true
@@ -368,7 +368,6 @@ function on_message(self, message_id, message)
         self.blur_end_timer = message.duration
         self.blur_timer = 0
         self.blur_active = true
-        self.blur_enabled = true
         self.blur_difference = (self.blur_end_value-self.blur_value) / self.blur_end_timer
     elseif (message_id==MSG_BLUR_LOW ) then
         self.blur_material = BLUR_LOW
