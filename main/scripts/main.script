@@ -1,0 +1,32 @@
+
+local CAM_POS = vmath.vector3(0,0,0)
+local BACK_POS = vmath.vector3(0,0,0)
+
+local PI2 = math.pi*2
+
+function init(self)
+
+	self.camera_url = msg.url("/camera")
+	self.angle = 0
+	self.back_url = msg.url("/map_back")
+end
+
+function update(self, dt)
+
+	self.angle = self.angle+dt/2
+
+	if (self.angle>PI2) then
+		self.angle = self.angle-PI2
+	end
+	
+	CAM_POS.x = 850+530*math.cos(self.angle)
+	CAM_POS.y = 430+190*math.sin(self.angle)
+
+	go.set_position(CAM_POS, self.camera_url)
+
+	BACK_POS.y = CAM_POS.y-220
+	BACK_POS.x = 130+265*math.cos(self.angle)
+	go.set_position(BACK_POS, self.back_url)
+end
+
+

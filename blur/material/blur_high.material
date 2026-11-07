@@ -1,0 +1,41 @@
+name: "blur"
+tags: "post_process"
+vertex_program: "/blur/material/blur.vp"
+fragment_program: "/blur/material/blur_high.fp"
+vertex_space: VERTEX_SPACE_LOCAL
+vertex_constants {
+  name: "mtx_worldview"
+  type: CONSTANT_TYPE_WORLDVIEW
+}
+vertex_constants {
+  name: "mtx_proj"
+  type: CONSTANT_TYPE_PROJECTION
+}
+fragment_constants {
+  name: "u_resolution"
+  type: CONSTANT_TYPE_USER
+  value {
+    x: 960.0
+    y: 640.0
+  }
+}
+fragment_constants {
+  name: "u_blur_size"
+  type: CONSTANT_TYPE_USER
+  value {
+  }
+}
+fragment_constants {
+  name: "u_direction"
+  type: CONSTANT_TYPE_USER
+  value {
+    x: 1.0
+  }
+}
+samplers {
+  name: "texture_sampler"
+  wrap_u: WRAP_MODE_CLAMP_TO_EDGE
+  wrap_v: WRAP_MODE_CLAMP_TO_EDGE
+  filter_min: FILTER_MODE_MIN_LINEAR
+  filter_mag: FILTER_MODE_MAG_LINEAR
+}

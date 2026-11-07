@@ -1,0 +1,60 @@
+name: "main"
+instances {
+  id: "blur_post_processing"
+  prototype: "/blur/blur_post_processing.go"
+}
+scale_along_z: 0
+embedded_instances {
+  id: "camera"
+  data: "embedded_components {\n"
+  "  id: \"camera\"\n"
+  "  type: \"camera\"\n"
+  "  data: \"aspect_ratio: 1.0\\n"
+  "fov: 0.7854\\n"
+  "near_z: -1.0\\n"
+  "far_z: 1.0\\n"
+  "orthographic_projection: 1\\n"
+  "orthographic_zoom: 1.5\\n"
+  "\"\n"
+  "}\n"
+  ""
+  position {
+    x: 328.0
+    y: 609.0
+  }
+}
+embedded_instances {
+  id: "map_front"
+  data: "components {\n"
+  "  id: \"level_01\"\n"
+  "  component: \"/assets/tilemap/level_01.tilemap\"\n"
+  "}\n"
+  "components {\n"
+  "  id: \"main\"\n"
+  "  component: \"/main/scripts/main.script\"\n"
+  "}\n"
+  ""
+}
+embedded_instances {
+  id: "map_back"
+  data: "components {\n"
+  "  id: \"back\"\n"
+  "  component: \"/assets/tilemap/back.tilemap\"\n"
+  "  position {\n"
+  "    z: -0.5\n"
+  "  }\n"
+  "}\n"
+  ""
+  scale3 {
+    x: 1.5
+    y: 1.5
+  }
+}
+embedded_instances {
+  id: "gui"
+  data: "components {\n"
+  "  id: \"gui\"\n"
+  "  component: \"/main/gui/gui.gui\"\n"
+  "}\n"
+  ""
+}

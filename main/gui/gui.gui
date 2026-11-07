@@ -1,0 +1,76 @@
+script: "/main/gui/gui_script.gui_script"
+fonts {
+  name: "main"
+  font: "/assets/font/main.font"
+}
+fonts {
+  name: "link"
+  font: "/assets/font/link.font"
+}
+nodes {
+  position {
+    x: 158.0
+    y: 489.0
+  }
+  size {
+    x: 200.0
+    y: 70.0
+  }
+  type: TYPE_TEXT
+  text: "Blur On"
+  font: "main"
+  id: "blur_on"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 158.0
+    y: 161.0
+  }
+  size {
+    x: 220.0
+    y: 70.0
+  }
+  type: TYPE_TEXT
+  text: "Blur Off"
+  font: "main"
+  id: "blur_off"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 764.0
+    y: 500.0
+  }
+  size {
+    x: 240.0
+    y: 110.0
+  }
+  type: TYPE_TEXT
+  text: "<size=50%>Blur type:</size>\n"
+  "Low"
+  font: "main"
+  id: "blur_type"
+  inherit_alpha: true
+}
+nodes {
+  position {
+    x: 801.0
+    y: 48.0
+  }
+  scale {
+    x: 1.2
+    y: 1.2
+  }
+  size {
+    x: 250.0
+    y: 50.0
+  }
+  type: TYPE_TEXT
+  text: "Assets by Craftpix.net"
+  font: "link"
+  id: "text"
+  inherit_alpha: true
+}
+material: "/builtins/materials/gui.material"
+adjust_reference: ADJUST_REFERENCE_PARENT

@@ -1,0 +1,9 @@
+script: "/blur/render/blur.render_script"
+render_resources {
+  name: "blur_low"
+  path: "/blur/material/blur.material"
+}
+render_resources {
+  name: "blur_high"
+  path: "/blur/material/blur_high.material"
+}
