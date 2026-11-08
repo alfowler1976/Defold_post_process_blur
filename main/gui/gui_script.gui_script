@@ -13,7 +13,7 @@ function init(self)
 	
 	-- set up controls
 	self.ui_blur_on = UI.new(gui.get_node("blur_on"),false)
-	self.ui_blur_off = UI.new(gui.get_node("blur_off"),false)
+	self.ui_blur_off = UI.new(gui.get_node("blur_off"),true)
 
 	self.ui_blur_type = UI.new(gui.get_node("blur_type"),false)
 
@@ -36,12 +36,16 @@ function on_input(self, action_id, action)
 		if self.ui_blur_on:pick(action.x,action.y) then
 			pprint("blur-on")
 			msg.post("@render:", MSG_BLUR, {value=8,duration=2})
+			self.ui_blur_on:fade_out(0.5,0,nil)
+			self.ui_blur_off:fade_in(0.5,0,nil)
 		end
 
 		-- process blur off
 		if self.ui_blur_off:pick(action.x,action.y) then
 			pprint("blur-off")
 			msg.post("@render:", MSG_BLUR, {value=0,duration=2})
+			self.ui_blur_off:fade_out(0.5,0,nil)
+			self.ui_blur_on:fade_in(0.5,0,nil)
 		end
 
 		-- process blur type

@@ -9,30 +9,30 @@ fonts {
 }
 nodes {
   position {
-    x: 158.0
+    x: 240.0
     y: 489.0
   }
   size {
-    x: 200.0
+    x: 350.0
     y: 70.0
   }
   type: TYPE_TEXT
-  text: "Blur On"
+  text: "Turn Blur On"
   font: "main"
   id: "blur_on"
   inherit_alpha: true
 }
 nodes {
   position {
-    x: 158.0
+    x: 249.0
     y: 161.0
   }
   size {
-    x: 220.0
+    x: 350.0
     y: 70.0
   }
   type: TYPE_TEXT
-  text: "Blur Off"
+  text: "Turn Blur Off"
   font: "main"
   id: "blur_off"
   inherit_alpha: true

@@ -28,7 +28,7 @@ function M.new(node,transparent)
 end
 
 function M:pick(x,y)
-	if (gui.is_enabled(self.node)==false) then return false end
+	if (gui.is_enabled(self.node)==false or self.is_animating==true) then return false end
 		
 	return gui.pick_node(self.node, x, y) 
 end
@@ -47,9 +47,9 @@ end
 
 function M:fade_in(length,delay,callback)
 	self.is_animating = true
+	gui.set_enabled(self.node, true)
 	gui.animate(self.node, gui.PROP_COLOR, COLOR_WHITE, gui.EASING_LINEAR, length,delay,
 		function(gui_self, node)
-			gui.set_enabled(node, true)
 			self.is_animating = false
 			if callback then
 				callback(gui_self, node)
