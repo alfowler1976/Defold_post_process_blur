@@ -7,3 +7,7 @@ render_resources {
   name: "blur_high"
   path: "/blur/material/blur_high.material"
 }
+render_resources {
+  name: "blur_none"
+  path: "/blur/material/pass_through.material"
+}

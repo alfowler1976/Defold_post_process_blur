@@ -16,7 +16,7 @@ local MSG_BLUR_ENABLE = hash("msg_camera_blur_enable")
 -- blur materials
 local BLUR_LOW = hash("blur_low")
 local BLUR_HIGH = hash("blur_high")
-
+local BLUR_NONE = hash("blur_none")
 
 local DEFAULT_NEAR = -1
 local DEFAULT_FAR =   1
@@ -265,11 +265,10 @@ function update(self,dt)
 
     local predicates = self.predicates
 
-    -- route to world_rt 
-    if (self.blur_enabled==true and self.blur_value>0.01) then
-        render.set_render_target(state.world_rt)
-    end
-    
+
+    -- always route to world_rt 
+    render.set_render_target(state.world_rt)
+
     -- draw world
     render.set_depth_mask(true)
     render.set_stencil_mask(0xff)
@@ -296,33 +295,38 @@ function update(self,dt)
 
     reset_camera_world(state)
 
- 
-    -- blur
-    if (self.blur_enabled==true and self.blur_value>0.01) then
-        -- disable blend and reset view and projection
-        render.disable_state(graphics.STATE_BLEND)
-        render.set_view(IDENTITY)
-        render.set_projection(IDENTITY)
+    -- post procesing
+    render.disable_state(graphics.STATE_BLEND)
+    render.set_view(IDENTITY)
+    render.set_projection(IDENTITY)
 
-        -- set new render target
+    if (self.blur_enabled==true and self.blur_value>0.01) then
+        -- blur - 2-Pass Gaussian Blur
         render.set_render_target(state.pingpong_rt)
         render.enable_texture(0, state.world_rt, graphics.BUFFER_TYPE_COLOR0_BIT)
-        -- draw horizontal blur
         render.enable_material(self.blur_material)
         render.draw(predicates.post_process,{ constants = state.const_horiz })
-        render.disable_material()
+        render.disable_material() 
         render.disable_texture(0)
 
-        -- now set back to default
         render.set_render_target(render.RENDER_TARGET_DEFAULT)
         render.enable_texture(0, state.pingpong_rt, graphics.BUFFER_TYPE_COLOR0_BIT)
-        -- draw vertical blur
         render.enable_material(self.blur_material)
         render.draw(predicates.post_process,{ constants = state.const_vert })
-        render.disable_material()
+        render.disable_material() 
+        render.disable_texture(0)
+    else
+        -- blur off use the passthrough material
+        render.set_render_target(render.RENDER_TARGET_DEFAULT)
+        render.enable_texture(0, state.world_rt, graphics.BUFFER_TYPE_COLOR0_BIT)
+
+        -- Temporarily force blur size to 0 so the shader exits instantly
+        render.enable_material(BLUR_NONE)
+        render.draw(predicates.post_process, { constants = state.const_horiz })
+        render.disable_material() 
         render.disable_texture(0)
     end
-    
+      
     -- render GUI (always to default render target)
 
     local camera_gui = state.cameras.camera_gui
